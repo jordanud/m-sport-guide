@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>满冠体育 · 知识库入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f3f4f6;
+            color: #1f2937;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1080px;
+            width: 100%;
+        }
+
+        /* --- hero 区域 --- */
+        .hero {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.8rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e5e7eb;
+            transition: box-shadow 0.2s;
+        }
+
+        .hero:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero h1 span {
+            background: #eef2ff;
+            padding: 0.1rem 0.6rem;
+            border-radius: 40px;
+            font-weight: 450;
+            color: #3730a3;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: #4b5563;
+            max-width: 70ch;
+            margin-top: 0.6rem;
+        }
+
+        /* --- 卡片网格 (目录感) --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 680px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            .hero {
+                padding: 1.8rem 1.2rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .faq-flex {
+                flex-direction: column;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.6rem 1.5rem;
+            border: 1px solid #e9ebef;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: all 0.15s ease;
+        }
+
+        .card:hover {
+            border-color: #d1d5db;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            background: #fafbfc;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #eef2ff;
+            display: inline-block;
+        }
+
+        .card p, .card li {
+            font-size: 0.96rem;
+            color: #374151;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.3rem;
+        }
+
+        .card li::before {
+            content: "·";
+            position: absolute;
+            left: 0.2rem;
+            color: #818cf8;
+            font-weight: 600;
+        }
+
+        /* 提示区 / 说明区单独卡片 */
+        .info-block {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.8rem 2rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            margin-bottom: 1.8rem;
+        }
+
+        .info-block h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .info-block p {
+            color: #3f4a5a;
+            margin-bottom: 0.6rem;
+        }
+
+        .info-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-block .label {
+            display: inline-block;
+            background: #eef2ff;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #4338ca;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            margin-right: 0.4rem;
+        }
+
+        /* FAQ 区块 (摘要) */
+        .faq-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.8rem 0 1.2rem;
+        }
+
+        .faq-item {
+            background: #ffffff;
+            flex: 1 1 220px;
+            padding: 1rem 1.4rem;
+            border-radius: 18px;
+            border: 1px solid #e2e5ea;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #111827;
+            margin-bottom: 0.3rem;
+        }
+
+        .faq-item p {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        /* 链接样式 */
+        a {
+            color: #4338ca;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.1s;
+        }
+
+        a:hover {
+            border-bottom-color: #4338ca;
+        }
+
+        .site-link {
+            background: #f0f2ff;
+            padding: 0.05rem 0.3rem;
+            border-radius: 6px;
+            font-weight: 450;
+        }
+
+        .footer-note {
+            margin-top: 2.5rem;
+            padding: 1.2rem 0;
+            border-top: 1px solid #dce0e5;
+            font-size: 0.85rem;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        .footer-note a {
+            color: #4f46e5;
+        }
+
+        .inline-link {
+            font-weight: 450;
+        }
+
+        .badge {
+            background: #e5e7eb;
+            color: #1f2937;
+            font-size: 0.7rem;
+            padding: 0.08rem 0.5rem;
+            border-radius: 30px;
+            margin-left: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- hero 介绍与可信说明 -->
+    <div class="hero">
+        <h1><span>满冠体育</span> · 站点知识库</h1>
+        <p>
+            这是一个围绕 <a href="https://m-sport-mg.com" class="inline-link">满冠体育</a> 聚合的信息说明页。
+            我们以平实的视角梳理站点的背景、内容方向以及常见疑问，方便你快速了解这个领域的参考入口。
+        </p>
+        <p style="margin-top: 0.6rem; color: #6b7280; font-size: 0.95rem;">
+            内容基于公开资料与站点结构整理，不做过度诠释，只提供可查证的片段。
+        </p>
+    </div>
+
+    <!-- 卡片网格：目录感布局，四个分区 -->
+    <div class="card-grid">
+        <div class="card">
+            <h2>站点背景</h2>
+            <p>“满冠体育”是一个以运动项目信息、赛事动态以及相关资源索引为核心的线上站点。其内容涵盖多个体育门类，偏向信息整理与传播。页面结构清晰，适合作为体育类知识的快速查阅起点。</p>
+        </div>
+        <div class="card">
+            <h2>信息特点</h2>
+            <ul>
+                <li>更新频次稳定，条目以短篇介绍和汇总为主</li>
+                <li>分类明确，方便按项目或赛事浏览</li>
+                <li>视觉风格干净，导航直接，不堆砌无关内容</li>
+                <li>引用来源或相关链接时保持克制态度</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>适用场景</h2>
+            <ul>
+                <li>快速浏览某一运动项目的基本信息</li>
+                <li>查找赛事相关的基础说明或日期</li>
+                <li>作为进一步检索的出发点，而非唯一信源</li>
+                <li>对体育内容有轻度了解需求的人群</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>内容边界</h2>
+            <p>站点主要聚焦于信息呈现，不涉及训练指导或专业分析。若你需要深度数据或权威解读，建议结合多个来源交叉参考。本站仅做索引与摘要之用。</p>
+        </div>
+    </div>
+
+    <!-- 说明区 + 提示区 合并成一块较大的说明块 -->
+    <div class="info-block">
+        <h3>
+            <span class="label">说明</span>
+            关于站点可信度的几点观察
+        </h3>
+        <p>
+            <a href="https://m-sport-mg.com">满冠体育</a> 在内容组织上保持了一贯的简洁风格，
+            没有明显的广告干扰或跳转诱导。页面标题与正文对应度高，更新日志可见，适合作为常规信息查询的辅助站点。
+            当然，任何单一网站都不应被视为绝对可靠，尤其是涉及实时比分或政策变动的内容，建议与官方渠道核对。
+        </p>
+        <p style="margin-top: 0.6rem;">
+            从域名结构看，该站点没有使用夸张的二级目录或非常规后缀，页面响应速度正常，整体维护状态良好。
+            若你正在寻找一个没有冗余信息的体育内容索引，这里值得花几分钟浏览。
+        </p>
+    </div>
+
+    <!-- 提示区：用更轻量的卡片区分 -->
+    <div class="info-block" style="background: #f9faff; border-left: 4px solid #818cf8;">
+        <h3>
+            <span class="label">提示</span>
+            使用建议
+        </h3>
+        <p>
+            如果你对某个运动项目完全陌生，可以先在 <a href="https://m-sport-mg.com">满冠体育</a> 中找到对应分类，阅读概述。
+            它提供的是一种“目录感”的入口，而非百科全书式的细节。配合搜索引擎或专业书籍使用效果更佳。
+        </p>
+        <p style="margin-top: 0.4rem; color: #4b5563;">
+            <span style="background: #eef2ff; padding: 0 0.3rem; border-radius: 4px;">📌</span> 
+            注意：部分页面可能包含时效性较强的信息，建议留意发布日期。
+        </p>
+    </div>
+
+    <!-- FAQ 摘要区（三个简短问答） -->
+    <div style="margin: 1rem 0 0.2rem;">
+        <h3 style="font-weight: 500; font-size: 1.05rem; color: #1f2937; margin-bottom: 0.4rem;">常见疑问摘要</h3>
+    </div>
+    <div class="faq-section">
+        <div class="faq-item">
+            <strong>这个网站更新频繁吗？</strong>
+            <p>根据页面标注，内容会不定期补充，节奏不算快，但核心分类一直保持在线。</p>
+        </div>
+        <div class="faq-item">
+            <strong>需要注册才能浏览吗？</strong>
+            <p>不需要。目前所有条目都可以直接查看，没有设置会员墙或登录门槛。</p>
+        </div>
+        <div class="faq-item">
+            <strong>信息准确度如何？</strong>
+            <p>大部分为基础性描述，准确度尚可。涉及具体数字或记录时，建议二次核实。</p>
+        </div>
+    </div>
+
+    <!-- 相关信息区：另一个卡片式区块 -->
+    <div class="info-block" style="margin-bottom: 0.5rem;">
+        <h3>
+            <span class="label">相关信息</span>
+            链接与延伸
+        </h3>
+        <p>
+            若你想直接进入主站探索，可以随时通过 <a href="https://m-sport-mg.com">满冠体育</a> 访问。
+            该链接指向站点首页，所有分类与最新内容均由此展开。此外，你可以关注站内“项目索引”页面，
+            那里以列表形式呈现了大部分收录条目。
+        </p>
+        <p style="margin-top: 0.6rem; font-size: 0.9rem; color: #6b7280;">
+            <span class="badge">非官方</span> 本介绍页与站点无隶属关系，仅作为独立的信息说明。
+        </p>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+        <p>内容整理 · 公开参考 · 以 <a href="https://m-sport-mg.com">满冠体育</a> 为索引起点</p>
+        <p style="margin-top: 0.2rem; opacity: 0.65;">—— 保持克制，只呈现可描述的部分 ——</p>
+    </div>
+
+</div>
+</body>
+</html>
